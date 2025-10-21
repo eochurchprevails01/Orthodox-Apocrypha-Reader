@@ -1,0 +1,23 @@
+{
+  "name": "orthodox-apocrypha-reader",
+  "version": "1.0.0",
+  "description": "A progressive web app for reading the Book of Bel and the Dragon (Serbian Orthodox canon), built with TypeScript, JavaScript, and PostgreSQL. Temporary test for Git push",
+  "main": "index.js",
+  "scripts": {
+  "install:all": "cd backend && npm install && cd ../frontend && npm install",
+  "dev:backend": "cd backend && npm run dev",
+  "dev:frontend": "cd frontend && npm run dev",
+  "build": "cd frontend && npm run build"
+}
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eochurchprevails01/orthodox-apocrypha-reader.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eochurchprevails01/orthodox-apocrypha-reader/issues"
+  },
+  "homepage": "https://github.com/eochurchprevails01/orthodox-apocrypha-reader#readme"
+}
