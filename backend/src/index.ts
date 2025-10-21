@@ -26,7 +26,7 @@ const pool = new Pool({
 interface Verse { chapter: number; verse: number; text: string; }
 interface Book { verses: Verse[]; }
 
-// Route: Fetch Book by ID (SQL SELECT + JSON parse)
+// Route: Fetch Book by ID
 app.get('/api/book/:id', async (req, res) => {
   try {
     const { id } = req.params;
@@ -39,7 +39,7 @@ app.get('/api/book/:id', async (req, res) => {
   }
 });
 
-// Route: User Registration (SQL INSERT with bcrypt hash)
+// Route: User Registration
 app.post('/api/register', async (req, res) => {
   const { username, email, password } = req.body;
   try {
@@ -54,7 +54,7 @@ app.post('/api/register', async (req, res) => {
   }
 });
 
-// Route: User Login (SQL SELECT + bcrypt compare + JWT)
+// Route: User Login
 app.post('/api/login', async (req, res) => {
   const { username, password } = req.body;
   try {
@@ -67,6 +67,20 @@ app.post('/api/login', async (req, res) => {
     res.json({ token });
   } catch (err) {
     res.status(500).json({ error: 'Login failed' });
+  }
+});
+
+// Route: Update Preferences (SQL UPSERT)
+app.put('/api/preferences', async (req, res) => {
+  const { userId, fontSize, themeColor } = req.body;
+  try {
+    await pool.query(
+      'INSERT INTO preferences (user_id, font_size, theme_color) VALUES ($1, $2, $3) ON CONFLICT (user_id) DO UPDATE SET font_size = $2, theme_color = $3',
+      [userId, fontSize, themeColor]
+    );
+    res.json({ message: 'Preferences updated' });
+  } catch (err) {
+    res.status(500).json({ error: 'Update failed' });
   }
 });
 
